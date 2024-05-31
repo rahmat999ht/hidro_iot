@@ -33,6 +33,7 @@ class HomeController extends GetxController with StateMixin<HidroponicModel> {
 
   @override
   void onInit() {
+    //wais
     getData();
     super.onInit();
   }
