@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hidroponik_iot/firebase_options.dart';
+import 'package:hidroponik_iot/theme/apptheme.dart';
 
 import 'app/routes/app_pages.dart';
 
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: initialRoute,
       getPages: AppPages.routes,
+      theme: AppTheme.dark,
       // theme: AppTheme.light,
       // builder: EasyLoading.init(),
     );
