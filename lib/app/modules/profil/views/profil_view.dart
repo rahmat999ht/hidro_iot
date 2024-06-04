@@ -22,7 +22,13 @@ Widget profilView() {
     children: [
       CircleAvatar(
         backgroundColor: Colors.white,
-      )
+      ),
+      CircleAvatar(
+        backgroundColor: Colors.white,
+      ),
+      CircleAvatar(
+        backgroundColor: Colors.white,
+      ),
     ],
   );
 }
