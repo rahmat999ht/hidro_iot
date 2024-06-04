@@ -18,17 +18,13 @@ class ProfilView extends GetView<ProfilController> {
 }
 
 Widget profilView() {
-  return Column(
-    children: [
-      CircleAvatar(
-        backgroundColor: Colors.white,
-      ),
-      CircleAvatar(
-        backgroundColor: Colors.white,
-      ),
-      CircleAvatar(
-        backgroundColor: Colors.white,
-      ),
-    ],
+  return Center(
+    child: Column(
+      children: [
+        CircleAvatar(
+          backgroundColor: Colors.white,
+        )
+      ],
+    ),
   );
 }
