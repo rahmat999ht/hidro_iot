@@ -9,16 +9,20 @@ class ProfilView extends GetView<ProfilController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ProfilView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'ProfilView is working',
-          style: TextStyle(fontSize: 20),
+        appBar: AppBar(
+          title: const Text('ProfilView'),
+          centerTitle: true,
         ),
-      ),
-    );
+        body: profilView());
   }
+}
+
+Widget profilView() {
+  return Column(
+    children: [
+      CircleAvatar(
+        backgroundColor: Colors.white,
+      )
+    ],
+  );
 }
