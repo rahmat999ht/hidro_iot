@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:hidroponik_iot/component/button.dart';
@@ -119,6 +120,27 @@ class HomeView extends GetView<HomeController> {
                         decoration: BoxDecoration(
                             color: Colors.grey.shade800,
                             borderRadius: BorderRadius.circular(20)),
+                        child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/img/digital.svg',
+                                  color: Colors.white,
+                                  height: 50,
+                                  width: 50,
+                                ),
+                                const Text(
+                                  'Digital',
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text('${s?.digital}')
+                              ],
+                            )),
                       ),
                       Container(
                         width: 180,
