@@ -126,11 +126,10 @@ class HomeView extends GetView<HomeController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SvgPicture.asset(
-                                  'assets/img/digital.svg',
-                                  color: Colors.white,
-                                  height: 50,
-                                  width: 50,
+                                Image.asset(
+                                  'assets/img/temperature.png',
+                                  height: 70,
+                                  width: 70,
                                 ),
                                 const Text(
                                   'Digital',
