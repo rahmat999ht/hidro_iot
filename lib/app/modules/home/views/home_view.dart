@@ -14,11 +14,27 @@ class HomeView extends GetView<HomeController> {
           centerTitle: true,
         ),
         body: controller.obx(
-          (s) => Center(
-            child: Text(
-              'Ph : ${s?.ph}',
-              style: const TextStyle(fontSize: 20),
-            ),
+          (s) => Column(
+            children: [
+              Center(
+                child: Text(
+                  'Ph : ${s?.ph}',
+                  style: const TextStyle(fontSize: 20),
+                ),
+              ),
+               Center(
+                child: Text(
+                  'Ph : ${s?.ph}',
+                  style: const TextStyle(fontSize: 20),
+                ),
+              ),
+               Center(
+                child: Text(
+                  'Ph : ${s?.ph}',
+                  style: const TextStyle(fontSize: 20),
+                ),
+              ),
+            ],
           ),
           onEmpty: const Text('kosong'),
           onError: (e) => Text('error $e'),
