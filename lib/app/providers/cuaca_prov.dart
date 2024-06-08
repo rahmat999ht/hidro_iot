@@ -6,7 +6,7 @@ import 'package:hidroponik_iot/app/model/cuaca.dart';
 class CuacaProvider extends GetConnect {
   final String baseURL = 'https://api.openweathermap.org/';
 
-  Future<CuacaModel> getCuaca() async {
+  Future<Response> getCuaca() async {
     final queryParameter = {
       'q': 'Makassar',
       'appid': '1fe5f03e8b679377cbc41601289edfdd',
@@ -20,7 +20,7 @@ class CuacaProvider extends GetConnect {
         return Future.error(response);
       } else {
         log(response.bodyString!, name: 'data response');
-        return cuacaModelFromJson(response.bodyString!);
+        return response;
       }
     } catch (error) {
       log(error.toString(), name: "data error");
@@ -30,7 +30,7 @@ class CuacaProvider extends GetConnect {
 
   @override
   void onInit() {
-    httpClient.baseUrl = baseUrl;
+    httpClient.baseUrl = baseURL;
     super.onInit();
   }
 }

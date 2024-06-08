@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
 import 'package:get/get.dart';
-import 'package:hidroponik_iot/app/model/hidro.dart';
 import 'package:hidroponik_iot/component/button.dart';
 import 'package:hidroponik_iot/component/carddata.dart';
-import 'package:hidroponik_iot/component/weather_detail.dart';
 import 'package:hidroponik_iot/theme/extension_context.dart';
 
-// import '../../../routes/app_pages.dart';
 import '../../../../component/card_cuaca.dart';
 import '../controllers/home_controller.dart';
 
@@ -27,19 +22,20 @@ class HomeView extends GetView<HomeController> {
             ),
             const Text('WELLCOME TO MY HIDROPONIC'),
             ButtonKu(
-                onTap: () {
-                  // Get.toNamed(Routes.PROFIL);
-                  context.goProfile();
-                },
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 20,
-                  child: Image.asset(
-                    'assets/img/digital.png',
-                    width: 40,
-                    height: 40,
-                  ),
-                )),
+              onTap: () {
+                // Get.toNamed(Routes.PROFIL);
+                context.goProfile();
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 20,
+                child: Image.asset(
+                  'assets/img/digital.png',
+                  width: 40,
+                  height: 40,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -49,27 +45,27 @@ class HomeView extends GetView<HomeController> {
             ModelListHidro(
               assets: 'assets/img/digital.png',
               title: 'Digital',
-              value: s!.digital.toString(),
+              value: s!.dataHidro!.digital.toString(),
             ),
             ModelListHidro(
               assets: 'assets/img/temperature.png',
               title: 'Temperatur',
-              value: '${s.temperature}°',
+              value: '${s..dataHidro!.temperature}°',
             ),
             ModelListHidro(
               assets: 'assets/img/ph.png',
               title: 'Ph Matahari',
-              value: s.ph.toString(),
+              value: s.dataHidro!.ph.toString(),
             ),
             ModelListHidro(
               assets: 'assets/img/volt.png',
               title: 'Voltage',
-              value: s.voltage.toString(),
+              value: s.dataHidro!.voltage.toString(),
             ),
           ];
           return Column(
             children: [
-              cardCuaca(s),
+              cardCuaca(s.dataCuaca),
               const SizedBox(
                 height: 20,
               ),
