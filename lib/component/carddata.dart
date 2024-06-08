@@ -11,25 +11,26 @@ Container cardHidro({
     decoration: BoxDecoration(
         color: Colors.grey.shade800, borderRadius: BorderRadius.circular(20)),
     child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset(
-              assets,
-              height: 70,
-              width: 70,
-            ),
-            Text(
-              title,
-              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              value,
-              style: TextStyle(fontSize: 20),
-            )
-          ],
-        )),
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.asset(
+            assets,
+            height: 70,
+            width: 70,
+          ),
+          Text(
+            title,
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            value,
+            style: const TextStyle(fontSize: 16),
+          )
+        ],
+      ),
+    ),
   );
 }
