@@ -10,7 +10,7 @@ class ProfilView extends GetView<ProfilController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('ProfilView'),
+          title: const Text('Profil'),
           centerTitle: true,
         ),
         body: profilView());
@@ -18,13 +18,29 @@ class ProfilView extends GetView<ProfilController> {
 }
 
 Widget profilView() {
-  return Center(
-    child: Column(
-      children: [
-        CircleAvatar(
-          backgroundColor: Colors.white,
-        )
-      ],
-    ),
+  return ListView(
+    children: [
+      Center(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 50),
+          child: Column(
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 100,
+                child: Image.asset('assets/img/digital.png'),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                'Iznsraa',
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
+        ),
+      ),
+    ],
   );
 }

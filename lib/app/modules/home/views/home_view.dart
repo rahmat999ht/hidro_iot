@@ -4,10 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hidroponik_iot/app/model/hidro.dart';
 import 'package:hidroponik_iot/component/button.dart';
+import 'package:hidroponik_iot/component/carddata.dart';
 import 'package:hidroponik_iot/component/weather_detail.dart';
 import 'package:hidroponik_iot/theme/extension_context.dart';
 
 // import '../../../routes/app_pages.dart';
+import '../../../../component/card_cuaca.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -16,6 +18,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 10,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -28,10 +31,14 @@ class HomeView extends GetView<HomeController> {
                   // Get.toNamed(Routes.PROFIL);
                   context.goProfile();
                 },
-                child: Image.asset(
-                  'assets/img/logo.png',
-                  width: 40,
-                  height: 40,
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 20,
+                  child: Image.asset(
+                    'assets/img/digital.png',
+                    width: 40,
+                    height: 40,
+                  ),
                 )),
           ],
         ),
@@ -95,108 +102,6 @@ class HomeView extends GetView<HomeController> {
         onError: (e) => Text('error $e'),
         onLoading: const CircularProgressIndicator(),
       ),
-    );
-  }
-
-  Padding cardCuaca(HidroponicModel s) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-            color: Colors.grey.shade800,
-            borderRadius: BorderRadius.circular(20)),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Row(
-              children: [
-                Icon(
-                  Icons.wb_cloudy,
-                  color: Colors.white,
-                  size: 50,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Berawan',
-                      style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                    Text(
-                      'Makassar, Indonesia',
-                      style: TextStyle(fontSize: 20),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  '22°',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 60,
-                      fontWeight: FontWeight.bold),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                WeatherDetail(label: 'Digital', value: '${s.digital}'),
-                WeatherDetail(label: 'Ph', value: '${s.ph}'),
-                WeatherDetail(label: 'Temperature', value: '${s.temperature}'),
-                WeatherDetail(label: 'Voltage', value: '${s.voltage}'),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Container cardHidro({
-    required String assets,
-    required String title,
-    required String value,
-  }) {
-    return Container(
-      width: 180,
-      height: 180,
-      decoration: BoxDecoration(
-          color: Colors.grey.shade800, borderRadius: BorderRadius.circular(20)),
-      child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.asset(
-                assets,
-                height: 70,
-                width: 70,
-              ),
-              Text(
-                title,
-                style:
-                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                value,
-                style: TextStyle(fontSize: 20),
-              )
-            ],
-          )),
     );
   }
 }
