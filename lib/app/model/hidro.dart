@@ -11,13 +11,15 @@ String hidroponicModelToJson(HidroponicModel data) =>
     json.encode(data.toJson());
 
 class HidroponicModel {
-  int? digital;
+  double? suhu;
+  int? kelembaban;
   double? ph;
   int? temperature;
   double? voltage;
 
   HidroponicModel({
-    this.digital,
+    this.suhu,
+    this.kelembaban,
     this.ph,
     this.temperature,
     this.voltage,
@@ -25,14 +27,16 @@ class HidroponicModel {
 
   factory HidroponicModel.fromJson(Map<String, dynamic> json) =>
       HidroponicModel(
-        digital: json["digital"],
+        suhu: json["suhu"],
+        kelembaban: json["kelembaban"],
         ph: json["ph"]?.toDouble(),
         temperature: json["temperature"],
         voltage: json["voltage"]?.toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
-        "digital": digital,
+        "suhu": suhu,
+        "kelembaban": kelembaban,
         "ph": ph,
         "temperature": temperature,
         "voltage": voltage,

@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
-import 'package:hidroponik_iot/app/model/cuaca.dart';
 
 class CuacaProvider extends GetConnect {
   final String baseURL = 'https://api.openweathermap.org/';

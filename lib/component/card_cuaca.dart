@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hidroponik_iot/app/model/cuaca.dart';
+import 'package:hidroponik_iot/component/weather_detail.dart';
 
-Widget cardCuaca(CuacaModel? s) {
-  if (s == null) {
+Widget cardCuaca(CuacaModel? data) {
+  if (data == null) {
     return const SizedBox(
       height: 300,
       child: CircularProgressIndicator(),
     );
   }
   return SizedBox(
-    height: 300,
+    height: 220,
     child: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
@@ -30,17 +31,17 @@ Widget cardCuaca(CuacaModel? s) {
                 const SizedBox(
                   width: 12,
                 ),
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Berawan',
-                      style: TextStyle(
+                      '${data.weather[0].main}°',
+                      style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),
-                    Text(
+                    const Text(
                       'Makassar, Indonesia',
                       style: TextStyle(fontSize: 16),
                     )
@@ -49,27 +50,38 @@ Widget cardCuaca(CuacaModel? s) {
                 const SizedBox(
                   width: 45,
                 ),
+                const Spacer(),
                 Text(
-                  '${s.main.tempMax}°',
+                  '${data.clouds.all}°',
                   style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold),
-                )
+                    color: Colors.white,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(width: 8),
               ],
             ),
-            // const SizedBox(
-            //   height: 20,
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //   children: [
-            //     WeatherDetail(label: 'Digital', value: '${s.digital}'),
-            //     WeatherDetail(label: 'Ph', value: '${s.ph}'),
-            //     WeatherDetail(label: 'Temperature', value: '${s.temperature}'),
-            //     WeatherDetail(label: 'Voltage', value: '${s.voltage}'),
-            //   ],
-            // )
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                WeatherDetail(
+                  label: 'Temperature',
+                  value: '${data.main.temp}',
+                ),
+                WeatherDetail(
+                  label: 'Temp. Max',
+                  value: '${data.main.tempMin}',
+                ),
+                WeatherDetail(
+                  label: 'Temp. Min',
+                  value: '${data.main.tempMax}',
+                ),
+              ],
+            )
           ],
         ),
       ),
