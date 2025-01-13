@@ -4,49 +4,59 @@
 
 import 'dart:convert';
 
-HidroponicModel hidroponicModelFromJson(String str) =>
-    HidroponicModel.fromJson(json.decode(str));
+HidroponicModel hidroponicModelFromJson(String str) => HidroponicModel.fromJson(json.decode(str));
 
-String hidroponicModelToJson(HidroponicModel data) =>
-    json.encode(data.toJson());
+String hidroponicModelToJson(HidroponicModel data) => json.encode(data.toJson());
 
 class HidroponicModel {
-  double? suhu;
-  int? kelembaban;
-  double? ph;
-  int? temperature;
-  double? voltage;
+    final String ph;
+    final int temperature;
+    final String suhu;
+    final String air;
+    final String kelembaban;
+    final double voltage;
 
-  HidroponicModel({
-    this.suhu,
-    this.kelembaban,
-    this.ph,
-    this.temperature,
-    this.voltage,
-  });
+    HidroponicModel({
+        required this.ph,
+        required this.temperature,
+        required this.suhu,
+        required this.air,
+        required this.kelembaban,
+        required this.voltage,
+    });
 
-  factory HidroponicModel.fromJson(Map<String, dynamic> json) =>
-      HidroponicModel(
-        suhu: json["suhu"],
-        kelembaban: json["kelembaban"],
-        ph: json["ph"]?.toDouble(),
+    HidroponicModel copyWith({
+        String? ph,
+        int? temperature,
+        String? suhu,
+        String? air,
+        String? kelembaban,
+        double? voltage,
+    }) => 
+        HidroponicModel(
+            ph: ph ?? this.ph,
+            temperature: temperature ?? this.temperature,
+            suhu: suhu ?? this.suhu,
+            air: air ?? this.air,
+            kelembaban: kelembaban ?? this.kelembaban,
+            voltage: voltage ?? this.voltage,
+        );
+
+    factory HidroponicModel.fromJson(Map<String, dynamic> json) => HidroponicModel(
+        ph: json["ph"],
         temperature: json["temperature"],
+        suhu: json["suhu"],
+        air: json["air"],
+        kelembaban: json["kelembaban"],
         voltage: json["voltage"]?.toDouble(),
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
-        "suhu": suhu,
-        "kelembaban": kelembaban,
+    Map<String, dynamic> toJson() => {
         "ph": ph,
         "temperature": temperature,
+        "suhu": suhu,
+        "air": air,
+        "kelembaban": kelembaban,
         "voltage": voltage,
-      };
-}
-
-class ModelListHidro {
-  final String assets;
-  final String title;
-  final String value;
-  ModelListHidro(
-      {required this.assets, required this.title, required this.value});
+    };
 }

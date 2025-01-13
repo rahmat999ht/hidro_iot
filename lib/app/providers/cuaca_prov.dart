@@ -18,7 +18,7 @@ class CuacaProvider extends GetConnect {
         log(response.toString(), name: 'data error');
         return Future.error(response);
       } else {
-        log(response.bodyString!, name: 'data response');
+        // log(response.bodyString!, name: 'data response');
         return response;
       }
     } catch (error) {

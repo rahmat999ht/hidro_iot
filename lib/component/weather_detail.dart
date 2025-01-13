@@ -12,12 +12,12 @@ class WeatherDetail extends StatelessWidget {
       children: [
         Text(
           value,
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
         ),
         Text(
           label,
-          style: TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 18),
         )
       ],
     );

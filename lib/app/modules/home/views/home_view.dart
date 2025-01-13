@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hidroponik_iot/component/button.dart';
 import 'package:hidroponik_iot/component/carddata.dart';
-import 'package:hidroponik_iot/theme/extension_context.dart';
 
 import '../../../../component/card_cuaca.dart';
 import '../controllers/home_controller.dart';
@@ -14,30 +10,6 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 10,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const SizedBox(width: 40),
-            const Text('WELLCOME TO MY HIDROPONIC'),
-            ButtonKu(
-              onTap: () {
-                // Get.toNamed(Routes.PROFIL);
-                context.goProfile();
-              },
-              child: const CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 20,
-                child: Icon(
-                  Icons.person,
-                  size: 20,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
       body: controller.obx(
         (s) {
           final listData = [
@@ -62,12 +34,55 @@ class HomeView extends GetView<HomeController> {
               value: s.dataHidro!.kelembaban.toString(),
             ),
           ];
+          // controller.air.value = s.dataHidro!.air;
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // SizedBox(width: 40),
+                    Text(
+                      'Hello Abdullah Asmara',
+                      style: context.textTheme.titleLarge,
+                    ),
+                    Text(
+                      'Welcome to hydroponic',
+                      style: context.textTheme.labelLarge,
+                    ),
+                  ],
+                ),
+              ),
               cardCuaca(s.dataCuaca),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade800,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Air',
+                      style: context.textTheme.titleLarge,
+                    ),
+                    if (controller.air.value == '0')
+                      const Icon(Icons.water_drop, color: Colors.red)
+                    else
+                      const Icon(Icons.water_drop, color: Colors.blue),
+                  ],
+                ),
+              ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -92,7 +107,7 @@ class HomeView extends GetView<HomeController> {
         },
         onEmpty: const Text('kosong'),
         onError: (e) => Text('error $e'),
-        onLoading: const CircularProgressIndicator(),
+        onLoading: const Center(child: CircularProgressIndicator()),
       ),
     );
   }

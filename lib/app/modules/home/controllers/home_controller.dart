@@ -11,65 +11,48 @@ class HomeController extends GetxController with StateMixin<ModelHome> {
 
   HomeController({required this.cuacaProv});
 
-  ModelListHidro? data;
-
+  final air = ''.obs; // Nilai reaktif untuk air
   DatabaseReference ref = FirebaseDatabase.instance.ref();
-  // final HidroponicModel dataHidro = <HidroponicModel>{};
-  final HidroponicModel dataHidro = HidroponicModel();
 
-  Future getSensor() async {
-    final hidro = await ref.child('sensor').get();
+  Future<void> getSensor() async {
+    final hidroRef = ref.child('sensor');
     final cuaca = await cuacaProv.getCuaca();
-    if (hidro.exists && cuaca.statusCode == 200) {
-      final dataHidro = Map<String, dynamic>.from(hidro.value as Map);
 
-      if (dataHidro.isEmpty && cuaca.bodyString == null) {
-        change(
-          ModelHome(
-            dataHidro: HidroponicModel.fromJson({}),
-            dataCuaca: CuacaModel.fromJson({}),
-          ),
-          status: RxStatus.empty(),
-        );
-      }
-      change(
-        ModelHome(
-          dataHidro: HidroponicModel.fromJson(dataHidro),
-          dataCuaca: cuacaModelFromJson(cuaca.bodyString!),
-        ),
-        status: RxStatus.success(),
-      );
-      log(data.toString(), name: 'get data');
+    if (cuaca.statusCode == 200) {
+      // Listener untuk data sensor Firebase
+      hidroRef.onValue.listen((DatabaseEvent event) {
+        if (event.snapshot.exists) {
+          final data = event.snapshot.value as Map<dynamic, dynamic>;
+          final dataHidro = Map<String, dynamic>.from(data);
+
+          // Update nilai reaktif
+          air.value = dataHidro['air'].toString();
+
+          log(dataHidro.toString(), name: "hidro");
+          log(cuaca.bodyString.toString(), name: "cuaca");
+
+          // Update status data ke RxStatus.success
+          change(
+            ModelHome(
+              dataHidro: HidroponicModel.fromJson(dataHidro),
+              dataCuaca: cuacaModelFromJson(cuaca.bodyString!),
+            ),
+            status: RxStatus.success(),
+          );
+        } else {
+          // Data kosong
+          log("No sensor data available.", name: "hidro");
+          change(null, status: RxStatus.empty());
+        }
+      });
     } else {
-      log('No data available.', name: 'get error');
+      log('Failed to fetch weather data.', name: 'cuaca');
       change(null, status: RxStatus.error());
     }
   }
 
-  // Future getCuacaMakassar() async {
-  //   cuacaProv.getCuaca().then((result) {
-  //     if (result.cod == 200) {
-  //       log(result.toString(), name: 'data model');
-  //       change(
-  //         ModelHome(dataCuaca: cuacaModelFromJson(result.toString())),
-  //         status: RxStatus.success(),
-  //       );
-  //     } else {
-  //       change(
-  //         ModelHome(dataCuaca: CuacaModel.fromJson({})),
-  //         status: RxStatus.empty(),
-  //       );
-  //     }
-  //   }, onError: (err) {
-  //     log(err.toString(), name: 'findCuacaMakassar err');
-  //     change(null, status: RxStatus.error(err.toString()));
-  //   });
-  // }
-
   @override
   void onInit() {
-    //wais
-    //yayat
     getSensor();
     super.onInit();
   }
