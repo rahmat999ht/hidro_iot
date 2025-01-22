@@ -38,11 +38,9 @@ class HomeView extends GetView<HomeController> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -59,24 +57,33 @@ class HomeView extends GetView<HomeController> {
                 ),
               ),
               cardCuaca(s.dataCuaca),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                    color: Colors.grey.shade800,
-                    borderRadius: BorderRadius.circular(20)),
+              const SizedBox(height: 4),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Air',
-                      style: context.textTheme.titleLarge,
+                    cardAirPompa(
+                      context: context,
+                      title: "Pompa",
+                      value: Obx(
+                        () => Switch(
+                          value: controller.lightState.value,
+                          inactiveThumbColor: Colors.red,
+                          activeColor: Colors.blue,
+                          activeTrackColor: Colors.grey,
+                          onChanged: (v) => controller.stateLight(v),
+                        ),
+                      ),
                     ),
-                    if (controller.air.value == '0')
-                      const Icon(Icons.water_drop, color: Colors.red)
-                    else
-                      const Icon(Icons.water_drop, color: Colors.blue),
+                    cardAirPompa(
+                      context: context,
+                      title: "Air",
+                      value: (controller.air.value == '0')
+                          ? const Icon(Icons.water_drop, color: Colors.red)
+                          : const Icon(Icons.water_drop, color: Colors.blue),
+                    ),
                   ],
                 ),
               ),
@@ -84,6 +91,7 @@ class HomeView extends GetView<HomeController> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: GridView.builder(
+                    // physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       mainAxisSpacing: 16.0,
@@ -108,6 +116,36 @@ class HomeView extends GetView<HomeController> {
         onEmpty: const Text('kosong'),
         onError: (e) => Text('error $e'),
         onLoading: const Center(child: CircularProgressIndicator()),
+      ),
+    );
+  }
+
+  Card cardAirPompa({
+    required BuildContext context,
+    required String title,
+    required Widget value,
+  }) {
+    return Card(
+      margin: const EdgeInsets.all(0),
+      color: Colors.grey.shade800,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: SizedBox(
+        width: Get.width * 0.44,
+        height: 60,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: context.textTheme.titleLarge,
+              ),
+              value,
+            ],
+          ),
+        ),
       ),
     );
   }
